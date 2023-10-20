@@ -58,7 +58,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ehid"]
 size = Vector2(18, 21.3182)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="CharacterBody2D"]
 texture_filter = 1
 metadata/_edit_group_ = true
 
