@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://mh4ht1wrbmts"]
+[gd_scene load_steps=14 format=3 uid="uid://mh4ht1wrbmts"]
 
 [ext_resource type="Texture2D" uid="uid://ne23jl3c5e10" path="res://sprites/character_frames/knight_m_hit_anim_f0.png" id="1_tvgbh"]
 [ext_resource type="Texture2D" uid="uid://diefgp4i1j1qr" path="res://sprites/character_frames/knight_m_idle_anim_f0.png" id="2_w1pyl"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://5hvvqub4iumr" path="res://sprites/character_frames/knight_m_run_anim_f1.png" id="7_mchhn"]
 [ext_resource type="Texture2D" uid="uid://duidegpkkdx84" path="res://sprites/character_frames/knight_m_run_anim_f2.png" id="8_vtqrm"]
 [ext_resource type="Texture2D" uid="uid://c030c2lnjetbd" path="res://sprites/character_frames/knight_m_run_anim_f3.png" id="9_53ka2"]
+[ext_resource type="Script" path="res://scripts/components/AnimationComponent.cs" id="10_hp6mj"]
+[ext_resource type="Script" path="res://scripts/components/MovementComponent.cs" id="11_jkwlu"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u3nnx"]
 animations = [{
@@ -58,15 +60,31 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ehid"]
 size = Vector2(18, 21.3182)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="RigidBody2D"]
+z_index = 5
 texture_filter = 1
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_u3nnx")
 animation = &"idle"
+frame_progress = 0.628943
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.82352)
 scale = Vector2(1, 1.10924)
 shape = SubResource("RectangleShape2D_4ehid")
+
+[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("AnimatedSprite2D", "MovementComponent")]
+script = ExtResource("10_hp6mj")
+AnimatedSprite2D = NodePath("../AnimatedSprite2D")
+MovementComponent = NodePath("../MovementComponent")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("11_jkwlu")
+Entity = NodePath("..")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+position_smoothing_enabled = true
+position_smoothing_speed = 15.0
