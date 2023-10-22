@@ -2,9 +2,10 @@ using Godot;
 
 namespace DungeonGame.scripts.components;
 
+[GlobalClass]
 public partial class MovementComponent : Node
 {
-	[Export] public RigidBody2D Entity;
+	[Export] public CharacterBody2D Entity;
 	[Export] public float Speed = 70;
 
 	public Vector2 Velocity;
@@ -20,6 +21,7 @@ public partial class MovementComponent : Node
 			Velocity = Velocity.Normalized() * Speed;
 		}
 
-		Entity.MoveAndCollide(Velocity * (float)delta);
+		Entity.Velocity = Velocity * (float)delta;
+		Entity.MoveAndSlide();
 	}
 }
