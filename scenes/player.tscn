@@ -58,9 +58,9 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ehid"]
-size = Vector2(18, 21.3182)
+size = Vector2(12, 14.4243)
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="CharacterBody2D"]
 z_index = 5
 texture_filter = 1
 metadata/_edit_group_ = true
@@ -71,20 +71,21 @@ animation = &"idle"
 frame_progress = 0.628943
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.82352)
+position = Vector2(1, 6)
 scale = Vector2(1, 1.10924)
 shape = SubResource("RectangleShape2D_4ehid")
-
-[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("AnimatedSprite2D", "MovementComponent")]
-script = ExtResource("10_hp6mj")
-AnimatedSprite2D = NodePath("../AnimatedSprite2D")
-MovementComponent = NodePath("../MovementComponent")
-
-[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("Entity")]
-script = ExtResource("11_jkwlu")
-Entity = NodePath("..")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("11_jkwlu")
+Entity = NodePath("..")
+Speed = 3000.0
+
+[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("AnimatedSprite2D", "MovementComponent")]
+script = ExtResource("10_hp6mj")
+AnimatedSprite2D = NodePath("../AnimatedSprite2D")
+MovementComponent = NodePath("../MovementComponent")
