@@ -1,35 +1,36 @@
 ﻿using Godot;
+using Godot.Collections;
 
 namespace DungeonGame.scripts.components;
 
+[GlobalClass]
 public partial class DungeonGeneratorComponent : Node
 {
     [Export] public TileMap DungeonTileMap;
     [Export] public Vector2I MainRoomSize = new Vector2I(6, 6);
 
-    [Export]
-    public int GroundLayer = 1;
-    [Export]
-    public int AtlasSourceId = 0;
+    [Export] public int GroundLayer = 1;
+    [Export] public int AtlasSourceId;
 
     private void GenerateMainRoom()
     {
         Vector2I cellCoords = new(1, 1);
-
-        GD.Print("Generating room");
+        Array<Vector2I> cellsCoords = new();
 
         for (var x = 0; x < MainRoomSize.X; x++)
         {
             for (var y = 0; y < MainRoomSize.Y; y++)
             {
-                Vector2I coords = new(x, y);
-                DungeonTileMap.SetCell(GroundLayer, coords, AtlasSourceId, cellCoords);
+                cellsCoords.Add(new Vector2I(x, y));
             }
         }
+
+        DungeonTileMap.SetCellsTerrainConnect(GroundLayer, cellsCoords, 0, 1, false);
     }
 
     public override void _Ready()
     {
+        GD.Print("Ready");
         GenerateMainRoom();
     }
 }
